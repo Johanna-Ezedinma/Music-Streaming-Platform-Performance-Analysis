@@ -105,7 +105,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Double down on upgrade conversion campaigns in Q4 and build a Q1 retention strategy to protect December gains from the post-holiday drop.
 
-![Page 1 — Business Pulse](screenshots/page1_business_pulse.png)
+![Page 1 — Business Pulse](page1_business_pulse.jpg)
 
 ---
 
@@ -119,7 +119,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Monitor session frequency as the leading churn indicator. Users logging fewer sessions than their historical average are the highest priority for re-engagement campaigns, not users with high skip rates.
 
-![Page 2 — Growth Engine](screenshots/page2_growth_engine.png)
+![Page 2 — Growth Engine](page2_growth_engine.jpg)
 
 ---
 
@@ -133,7 +133,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Investigate the recommendation logic. The engine should surface content that reduces skipping and increases session depth. A 13% skip rate on recommended content suggests listeners are not finding what they want through the algorithm.
 
-![Page 3 — Content Engine](screenshots/page3_content_engine.png)
+![Page 3 — Content Engine](page3_content_engine.jpg)
 
 ---
 
@@ -149,7 +149,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Launch a targeted win-back campaign for downgraded Premium and Family users specifically. A personalised offer acknowledging their previous tier and offering a discounted upgrade path has a higher success probability than targeting users who churned completely.
 
-![Page 4 — Risk and Action](screenshots/page4_risk_and_action.png)
+![Page 4 — Risk and Action](page4_risk_and_action.jpg)
 
 ---
 
@@ -369,7 +369,7 @@ Two custom tables were built in Power Query to support analysis that would have 
 ## Links
 
 
-- **LinkedIn Post:** [Read the full analysis writeup](#) 
+- **LinkedIn Post:** [Read analysis writeup](https://www.linkedin.com/posts/johanna-ezedinma_onyx-datadna-may-2026-challengemusic-streaming-ugcPost-7465836436701839361-vQRz/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABt242YBPxYi3_waYwYQ1ZF8OBqxB1kjAac) 
 - **Challenge:** [Onyx Data DataDNA Challenge](https://onyxdata.co.uk)
 
 ---
