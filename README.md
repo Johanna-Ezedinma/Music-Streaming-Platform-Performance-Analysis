@@ -379,5 +379,6 @@ Two custom tables were built in Power Query to support analysis that would have 
 **Johanna Ezedinma**
 
 
-[LinkedIn](https://linkedin.com/in/johanna-ezedinma/) · [GitHub](https://github.com/Johanna-Ezedinma)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/johanna-ezedinma/)    
+[GitHub](https://github.com/Johanna-Ezedinma)
 
