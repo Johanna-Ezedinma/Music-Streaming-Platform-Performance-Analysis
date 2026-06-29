@@ -105,7 +105,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Double down on upgrade conversion campaigns in Q4 and build a Q1 retention strategy to protect December gains from the post-holiday drop.
 
-![Page 1 — Business Pulse](Dashboards/page1_business_pulse.jpg)
+![Page 1 — Business Pulse](Dashboard/page1_business_pulse.jpg)
 
 ---
 
@@ -119,7 +119,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Monitor session frequency as the leading churn indicator. Users logging fewer sessions than their historical average are the highest priority for re-engagement campaigns, not users with high skip rates.
 
-![Page 2 — Growth Engine](Dashboards/page2_growth_engine.jpg)
+![Page 2 — Growth Engine](Dashboard/page2_growth_engine.jpg)
 
 ---
 
@@ -133,7 +133,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Investigate the recommendation logic. The engine should surface content that reduces skipping and increases session depth. A 13% skip rate on recommended content suggests listeners are not finding what they want through the algorithm.
 
-![Page 3 — Content Engine](Dashboards/page3_content_engine.jpg)
+![Page 3 — Content Engine](Dashboard/page3_content_engine.jpg)
 
 ---
 
@@ -149,7 +149,7 @@ The report is organised into four pages that tell one connected story. Each page
 
 **Recommendation:** Launch a targeted win-back campaign for downgraded Premium and Family users specifically. A personalised offer acknowledging their previous tier and offering a discounted upgrade path has a higher success probability than targeting users who churned completely.
 
-![Page 4 — Risk and Action](Dashboards/page4_risk_and_action.jpg)
+![Page 4 — Risk and Action](Dashboard/page4_risk_and_action.jpg)
 
 ---
 
@@ -169,179 +169,6 @@ The report is organised into four pages that tell one connected story. Each page
 | Artist drill-through | Page 3 | Right-click any artist to open the Artist Detail page |
 | Fraud drill-through | Page 4 | Right-click any user on the anomaly scatter to open the Fraud Session Detail page |
 | Country tooltip | All pages | Hover any country data point for an instant snapshot |
-
----
-
-## Key DAX Measures
-
-### Revenue
-
-```dax
--- Net subscription revenue across all MRR events
-Subscription Revenue =
-SUM(fact_subscription_event[mrr_change_usd])
-
--- Total estimated session-level revenue (ads and royalties)
-Total Session Revenue =
-SUM(fact_listening_session[estimated_revenue_usd])
-
--- MRR lost specifically to churn events
-Churned Revenue =
-CALCULATE(
-    SUM(fact_subscription_event[mrr_change_usd]),
-    fact_subscription_event[event_type] = "Churn"
-)
-
--- Average revenue per subscriber
-ARPU =
-DIVIDE(
-    [Subscription Revenue],
-    DISTINCTCOUNT(dim_user[user_id]),
-    0
-)
-```
-
-### Engagement
-
-```dax
--- Total listening sessions
-Session Volume =
-COUNTROWS(fact_listening_session)
-
--- Average session duration in minutes
-Avg Session Duration (mins) =
-DIVIDE(AVERAGE(fact_listening_session[listen_seconds]), 60)
-
--- Skip rate as a percentage
-Skip Rate % =
-DIVIDE(
-    CALCULATE(
-        COUNTROWS(fact_listening_session),
-        fact_listening_session[skipped] = TRUE()
-    ),
-    COUNTROWS(fact_listening_session)
-) * 100
-
--- Share of sessions where a new artist was discovered
-Discovery Rate % =
-DIVIDE(
-    CALCULATE(
-        COUNTROWS(fact_listening_session),
-        fact_listening_session[new_artist_discovered] = TRUE()
-    ),
-    [Session Volume],
-    0
-)
-
--- Platform stickiness: daily active users divided by monthly active users
-Stickiness (DAU/MAU) =
-VAR DAU = AVERAGEX(
-    VALUES(dim_date[full_date]),
-    CALCULATE(DISTINCTCOUNT(fact_listening_session[user_id]))
-)
-VAR MAU = CALCULATE(
-    DISTINCTCOUNT(fact_listening_session[user_id]),
-    ALL(dim_date[full_date])
-)
-RETURN DIVIDE(DAU, MAU, 0)
-```
-
-### Churn and Conversion
-
-```dax
--- Lifetime churn rate
-Churn Rate % =
-DIVIDE(
-    CALCULATE(
-        DISTINCTCOUNT(fact_subscription_event[user_id]),
-        fact_subscription_event[event_type] = "Churn"
-    ),
-    DISTINCTCOUNT(dim_user[user_id])
-) * 100
-
--- Free to paid conversion rate using event-level tier tracking
--- Note: ALL(dim_date) is intentional; this is a lifetime metric not a yearly one
-Free to Paid Conversion % =
-VAR AllFreeSignups =
-    CALCULATE(
-        DISTINCTCOUNT(fact_subscription_event[user_id]),
-        fact_subscription_event[event_type] = "Signup",
-        fact_subscription_event[to_tier] = "Free",
-        ALL(dim_date)
-    )
-VAR UpgradedFromFree =
-    CALCULATE(
-        DISTINCTCOUNT(fact_subscription_event[user_id]),
-        fact_subscription_event[event_type] = "Upgrade",
-        fact_subscription_event[from_tier] = "Free",
-        ALL(dim_date)
-    )
-RETURN DIVIDE(UpgradedFromFree, AllFreeSignups) * 100
-```
-
-### Fraud and Risk
-
-```dax
--- Percentage of users flagged as fraud cluster
-Fraud Cluster % =
-DIVIDE(
-    CALCULATE(COUNTROWS(dim_user), dim_user[is_fraud_cluster] = TRUE()),
-    COUNTROWS(dim_user)
-) * 100
-
--- Sessions after excluding fraud-flagged users
-Sessions Excluding Fraud =
-CALCULATE(
-    COUNTROWS(fact_listening_session),
-    dim_user[is_fraud_cluster] = FALSE()
-)
-
--- Percentage of session volume distorted by fraud
-Sessions Fraud Distortion % =
-DIVIDE([Session Volume] - [Sessions Excluding Fraud], [Session Volume])
-
--- MRR currently held by paid users showing churn signals
-Revenue at Risk =
-CALCULATE(
-    SUMX(
-        VALUES(dim_user[user_id]),
-        CALCULATE(
-            LASTNONBLANKVALUE(
-                fact_subscription_event[event_ts],
-                SUM(fact_subscription_event[mrr_after_usd])
-            )
-        )
-    ),
-    dim_user[Is At Risk] = "At Risk"
-)
-```
-
-### Simulation
-
-```dax
--- Dynamic monthly revenue saved based on churn reduction slider
-Revenue Saved by Churn Reduction =
-VAR ChurnReductionRate =
-    'Churn Reduction %'[Churn Reduction % Value] / 100
-VAR MonthlyChurnLoss =
-    ABS(
-        CALCULATE(
-            SUM(fact_subscription_event[mrr_change_usd]),
-            fact_subscription_event[event_type] = "Churn"
-        )
-    ) / 48
-RETURN ROUND(MonthlyChurnLoss * ChurnReductionRate, 2)
-```
-
----
-
-## Power Query Tables
-
-Two custom tables were built in Power Query to support analysis that would have been slow or complex in DAX.
-
-**`free_users_engegement`:** Groups all Free tier listening sessions by user and classifies each into Heavy (500+ sessions), Medium (100 to 499) or Light (under 100) listener tiers. Connected to `dim_user` via `user_id`.
-
-**`user_conversion_timeline`:** Pivots `fact_subscription_event` so each user has one row with dedicated columns for their Signup, Upgrade, Retention, Churn and Downgrade dates. Calculates `days_to_upgrade` and `days_to_churn` as custom columns using `Duration.Days()`. Connected to `dim_user` via `user_id`.
 
 ---
 
