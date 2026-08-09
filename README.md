@@ -1,213 +1,180 @@
-# Music Streaming Platform Performance Analytics
-**Author:** Johanna Ezedinma  
-**Date:** May 2026   
+# Music Streaming Platform Performance Analytics 
+**Date:** May 2026  
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/johanna-ezedinma/) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@johannaezedinma/code-blue-emergency-operations-patient-flow-analytics-1cf7176a1ec7) [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Johanna-Ezedinma)
+**Tools:** Power BI · DAX · Power Query     
+**Period:** 2021 to 2024 · 10 markets · 961 users · 224,078 sessions     
 
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/johanna-ezedinma/) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@johannaezedinma/code-blue-emergency-operations-patient-flow-analytics-1cf7176a1ec7) 
 
-
-> A four-year investigation into what is driving revenue, who is converting, what content is working and where the data cannot be trusted.
-
-
+> A four-year investigation into whether the platform's growth is sustainable, what drives subscriber conversion, where revenue is leaking, and whether the data used to make business decisions can be trusted.
 
 ---
+
+## Overview
+
+A Music streaming platforms operating across multiple markets face a core challenge: strong headline growth does not always reflect a healthy business. High session volume may not translate into sustainable revenue, recommendation engines may fail to influence user behaviour, and engagement metrics themselves may be distorted by non-human activity.
+
 
 ## The Business Problem
 
-A music streaming platform operating across 10 markets had four years of data but could not clearly answer four questions that every subscription business needs to answer:
+According to Spotify's 2023 annual report, subscriber churn remains one of the most expensive challenges in the streaming industry. For a mid-size platform without a billion-dollar marketing budget, every churned subscriber is harder to replace and every investment decision made on bad data compounds the problem.
 
-1. Is the business actually growing or just appearing to grow?
-2. Which users are most likely to pay and which are about to leave?
-3. Is the content strategy and recommendation engine working?
-4. How much of our data can we actually trust?
+This investigation separates genuine business performance from misleading signals and answers four critical questions:
+ 
+1. Is the platform truly growing?
+2. What behaviours drive subscriber conversion and churn?
+3. Is the recommendation strategy working?
+4. How much of engagement data can be trusted?
 
-Without answers to these four questions, leadership was making investment and retention decisions based on incomplete information. This report was built to answer all four, in that order, with evidence from the data.
-
----
-## The Approach
-
-Rather than organising the report around what the data contained, every page was structured around what the business needed to decide. The guiding question throughout was: if I were the owner of this platform, what would I need to know?
-
-This approach was the result of a deliberate structure of the report around a single connected story: financial health flows into user behaviour, which flows into content performance, which flows into risk and action.
+Without answers to these questions, the business risks investing in the wrong markets, optimising ineffective recommendation systems, and losing recoverable subscribers through untargeted retention efforts.
 
 ---
+### What the Data Revealed
 
-## What the Data Revealed
+The business has delivered consistent year-on-year revenue growth, supported primarily by subscriber upgrades rather than new customer acquisition.
 
-### The business is growing but losing users too fast
+However, three findings immediately stand out:
 
-Upgrades are the single largest revenue driver at $11,106 in total MRR movement over four years, outpacing churn losses of $2,432 by more than four to one. Revenue grows every year and December consistently produces the strongest results.
+- Revenue continues to increase each year. 
+- Nearly 42% of users leave within their first year. 
+- Almost half of recorded user activity appears to be non-human, meaning several headline engagement metrics overstate actual platform performance.
 
-The problem is retention. The platform loses 42% of its users within their first year of signing up. The drop is steepest between months three and five. Think of it like a leaking bucket: money is coming in through upgrades but a significant portion of users are leaving before the business can recoup the cost of acquiring them.
+Although the platform is commercially healthy today, future growth depends on retaining more users and ensuring business decisions are based on genuine customer behaviour rather than inflated activity
 
-![Business Health](Dashboard/page1_business_pulse.jpg)
+![Business Health](assets/summary.jpg)
 
-**What this means for the business:** A Q1 retention campaign specifically targeting users in their first six months would directly address the period where the most churn happens.
-
-
-### Engagement predicts who pays and who leaves
-
-Heavy listeners (users with 500 or more sessions) convert to paid plans at 92.86% compared to 82.93% for light listeners. They also convert faster. The more a user engages with the platform before being asked to pay, the more likely they are to say yes.
-
-On the churn side, session volume in the 30 days before a user churns does not show a clean decline. The pattern is erratic rather than a steady fade, which means there is no single obvious intervention point based on listening behaviour alone. Skip rate is not a useful churn predictor either — churned and retained users skip at almost identical rates (12.87% versus 13.03%).
-
-![Growth Engine](Dashboard/page2_growth_engine.jpg)
-
-**What this means for the business:** Focus retention efforts on session frequency monitoring rather than skip rates. A user who stops logging in is a stronger warning signal than a user who skips songs.
-
-
-### The recommendation engine is not working
-
-Algorithmically recommended tracks and organically discovered tracks have virtually identical skip rates: 13.16% versus 12.71%. The algorithm is neither helping nor hurting. Users are finding content just as well on their own as through the recommendation system.
-
-Looking at genre performance by country, strong content preferences exist in specific markets. Latin music over-indexes 2.16 times in Brazil, Hip-Hop over-indexes 2.14 times in the United States and Reggae over-indexes 2.40 times in South Africa. These are signals the recommendation engine could be using but currently is not reflecting in its output.
-
-![Content Engine](Dashboard/page3_content_engine.jpg)
-
-**What this means for the business:** The recommendation engine needs to incorporate geographic listening preferences. Recommending Latin music to Brazilian users who are not already listening to it would likely outperform the current approach.
-
-
-
-
-### Half the user base shows bot-like behaviour
-
-50% of users in the dataset show activity patterns consistent with automated streaming: 2.3 times more sessions than normal users, session durations 46% shorter and almost no variation in skip behaviour. In Japan and Germany, fraudulent activity accounts for over 75% of all session volume.
-
-This matters because every engagement metric in this report including total sessions, skip rates and discovery rates is calculated against a dataset where half the activity may not be genuine. The true engagement numbers after excluding fraud-flagged users tell a different story.
-
-
-**What this means for the business:** Any business decision based on raw session counts or engagement metrics needs to be cross-referenced with fraud-adjusted figures. Japan and Germany in particular need investigation before further content or marketing investment in those markets.
-
-![Risk and Action](Dashboard/page4_risk_and_action.jpg)
-
-### Most lost paid users are recoverable
-
-Of the paid subscribers who left, 59.8% downgraded to a lower tier rather than cancelling completely. That is 309 users who made a price or value decision, not a decision to leave the platform entirely. They are still reachable.
-
-**What this means for the business:** A targeted win-back campaign offering downgraded Premium and Family users a time-limited return to their previous tier at a reduced rate has a significantly higher success probability than trying to win back users who cancelled completely.
 
 ---
 
-## The Report Structure
+## Growth Drivers
 
-The report tells one connected story across four pages. Each page answers the question raised by the previous one.
+**Revenue is growing, but retention remains the weakest part of the business.**
 
-**Page 1: Executive Revenue and Health Summary**
-Where does the money come from and is the business financially healthy?
 
-**Page 2: Subscriber Acquisition, Conversion and Retention**
-Who is driving that revenue, how do we get more of them and who is about to leave?
+The analysis shows that subscriber upgrades generate substantially more revenue than churn removes, producing positive net revenue growth throughout the four-year period. December consistently delivers the strongest financial performance, suggesting seasonal purchasing behaviour. The Family tier alone drives 61% of all subscription revenue despite representing the smallest tier by user count at launch.
 
-**Page 3: Catalogue Performance and Recommendation Health**
-Is the content keeping users engaged enough to stay and convert?
+The largest decline occurs during months three to five after signup, where almost half of first-year users leave the platform before becoming long-term subscribers, the same window the industry calls the "trial cliff," where initial excitement fades and uncommitted users quietly disappear. This is the single most fixable revenue leak in the business.
 
-**Page 4: Revenue Erosion, Fraud Detection and Strategic Simulation**
-How much of our data can we trust and what is it worth to fix the problems we found?
+Geographic analysis also reveals significant differences in commercial performance. Countries such as Canada and France generate stronger revenue relative to their session volume, while other markets generate high engagement without equivalent financial returns.
 
----
+### Key Insight
 
-## Key Interactive Features
+The business is not struggling to generate revenue.
 
-The report is built to be explored not just read. Here is what you can do:
+It is struggling to retain customers long enough to maximise their lifetime value.
 
-- **Year buttons (2021 to 2024):** Filter every visual on the page to a specific year to see how patterns changed over time
-- **Segment toggle on Page 1 scatter:** Switch between Country, Age Group and Subscription Tier to see which segments are revenue champions versus volume drains
-- **Churn Signal / Upgrade Signal toggle on Page 2:** Switch between two scatter plots to see which user behaviour predicts upgrades and which predicts churn
-- **Country drill-through:** Right-click or hover any country data point and follow the arrow to a full Country Detail page showing that market's churn rate, top genres, device preferences and revenue trend
-- **Artist drill-through:** Right-click or hover any artist on Page 3 to see a full Artist Detail page including top tracks, strongest markets and algorithm versus organic performance
-- **Fraud drill-through on Page 4:** Right-click any user on the anomaly scatter to see their individual session history and validate whether the fraud flag makes sense for that specific user
-- **Churn reduction simulator:** Move the slider on Page 4 to see exactly how much revenue the business would save per month at different churn reduction percentages
+### Business Recommendation
+
+Launching a targeted retention programme specifically for users in months 3 to 5 will solve this. Session frequency monitoring is the right early warning signal; users who stop logging in are far more predictive of churn than users who skip songs
+
+![Business Health](assets/health.jpg)
+
 
 ---
 
-## Data Quality Notes
+## User Behaviour & Content Performance
 
-Three data issues were identified and documented during the build:
+**User behaviour explains why some customers convert while others leave.**
 
-**The date table was not connected.** The `dim_date` table was present in the model but had no active relationship to either fact table. Time intelligence measures were not filtering correctly until the relationships were manually established.
+The analysis shows that engagement depth is a much stronger predictor of conversion than simple activity volume.
 
-**Two relationships are intentionally inactive.** The direct relationships between `fact_listening_session` and both `dim_country` and `dim_genre` are marked inactive. This is expected because the connections flow correctly through an indirect path via `dim_user`. No data is lost and filtering works correctly through the indirect route.
+Users who spend longer listening are significantly more likely to upgrade to paid subscriptions than users who simply generate large numbers of sessions.
 
-**The fraud cluster finding changes how to read this report.** With 50% of users flagged as potentially non-human, session volume, skip rate and discovery rate figures are all higher than the genuine user base would produce on its own. Where possible, use the Sessions Excluding Fraud measure rather than total session counts when making business decisions based on this report.
+Skip rate, however, shows almost no relationship with churn, making it an unreliable retention indicator.
+
+The recommendation engine also contributes little measurable value. Algorithmically recommended tracks perform almost identically to organically discovered content, suggesting the current recommendation strategy is neither improving nor harming user engagement.
+
+Where meaningful differences do emerge is across geographic markets. Different countries consistently favour different genres, creating opportunities to personalise recommendations using regional listening behaviour rather than a universal recommendation model.
+
+### Key Insights
+
+- Longer listening sessions predict upgrades.
+- Skip rate is a poor predictor of churn.
+- Local content preferences vary substantially by country.
+- The recommendation engine currently adds little measurable value.
+
+### Business Recommendation
+
+Improve recommendation models by incorporating country-level listening preferences while monitoring session frequency and listening duration as early indicators of churn risk.
+
+![User vs Content](assets/content.jpg)
+
+---
+
+## Data Integrity, Risk & Strategic Actions
+
+**The biggest business risk is that many engagement metrics cannot be fully trusted.**
+
+Nearly 50% of users exhibit activity patterns consistent with automated streaming behaviour, generating more than twice as many sessions while spending considerably less time listening than genuine users. In Japan and Germany, fraudulent activity accounts for more than 75% of recorded session volume.
+
+Once fraudulent users are excluded, genuine engagement is substantially lower than headline platform metrics suggest. This means several business decisions based solely on raw session volume could be misleading.
+
+The investigation also identifies a significant retention opportunity.
+
+Among paid subscribers who left the platform, almost 60% downgraded to a lower subscription tier rather than cancelling completely. These users remain active within the platform and represent a much stronger reactivation opportunity than fully churned subscribers.
+
+The interactive churn simulator demonstrates the financial impact of improving retention, allowing stakeholders to estimate potential revenue savings under different churn-reduction scenarios.
+
+### Highest Priority Actions
+
+1. Investigate markets heavily affected by fraudulent activity before making marketing or content investment decisions.
+2. Launch targeted retention campaigns during months three to five of the customer lifecycle.
+3. Develop personalised win-back campaigns for downgraded subscribers.
+4. Rebuild recommendation logic using regional listening preferences.
+5. Report fraud-adjusted engagement metrics alongside headline platform KPIs.
+
+![Risk and Action](assets/action.jpg)
+
+---
+
+# Conclusion
+
+This investigation demonstrates that strong headline growth does not always reflect a healthy business.
+
+Although subscription revenue continues to increase and upgrades consistently outweigh churn, the platform's long-term performance is constrained by three structural challenges:
+
+- Weak early customer retention.
+- Limited impact from the recommendation engine.
+- Engagement metrics distorted by non-human activity.
+
+By improving retention during the highest-risk stage of the customer lifecycle, personalising recommendations using regional listening behaviour, re-engaging downgraded subscribers, and incorporating fraud-adjusted reporting into executive decision-making, the platform can improve customer lifetime value while making more informed strategic decisions.
+
+Ultimately, the objective of this project was not simply to describe what happened, but to distinguish genuine business growth from misleading signals and identify the actions most likely to improve long-term performance.
+
+---
+
+## Report Structure
+
+The report is organised across four pages that tell one connected story.
+
+**Summary** — Provides an executive overview of business performance, headline KPIs and the most important findings.
+
+**Growth Drivers** — Explores revenue trends, subscription movement, retention performance and geographic revenue contribution.
+
+**User  Behaviour and Content** — Examines subscriber behaviour, conversion drivers, recommendation effectiveness and regional content preferences.
+
+**Risk & Action** — Investigates fraud, identifies recoverable revenue opportunities and quantifies the impact of reducing churn.
 
 ---
 
 ## Methodology Notes
 
-**Over-index** means a genre is more popular in a specific country than it is globally. A value of 2.16 for Latin music in Brazil means Latin represents 2.16 times more of Brazil's listening sessions than it represents of global listening sessions. Anything above 1.0 indicates stronger than average interest in that market.
+**Fraud cluster** refers to users flagged by the source dataset as exhibiting behavioural patterns consistent with automated streaming activity.
 
-**Cohort retention** tracks what percentage of users who signed up in a given year are still active at each monthly milestone after joining. It is not about calendar months but about months since each user first signed up. This makes it possible to compare whether 2021 users are more or less loyal than 2023 users at the same point in their lifecycle.
+**Genuine session volume** refers to sessions from users where is_fraud_cluster = FALSE. All content performance rankings use genuine session volume rather than total volume to ensure rankings reflect real listener behaviour.
 
-**Fraud cluster** refers to users flagged by the `is_fraud_cluster` field in the dataset. These users show behaviour consistent with automated streaming bots: very high session counts, very short session durations and almost no variation in their skip patterns. The flagging was done at the data source level not by this analysis.
+**Over-index** values above 1.0 mean a genre represents a higher share of sessions in that country than globally. A value of 2.16 for Latin in Brazil means Latin is 2.16 times more popular there than the global average.
+
+**Cohort retention** tracks the percentage of users from each signup month still active at each monthly milestone after joining not at calendar months. This allows fair comparison across cohorts regardless of when they joined.
+
+**Session revenue versus subscription revenue** are kept strictly separate throughout this report. Session revenue (estimated_revenue_usd) is an analytical estimate of per-stream value used for content rankings only. Subscription revenue (mrr_change_usd) is the actual MRR movement used for all business health metrics. Combining them would create double counting.
 
 ---
 
 ## Tools Used
 
 | Tool | Purpose |
-|---|---|
+|------|---------|
 | Power BI Desktop | Report building, visualisation and data modelling |
-| DAX | All calculated measures and columns |
-| Power Query (M) | Data transformation and two custom analytical tables |
-
----
-
-## Dataset Overview
-
-| Detail | Value |
-|---|---|
-| Listening sessions | 224,078 |
-| Users | 961 |
-| Subscription events | 3,640 |
-| Tracks | 774 |
-| Artists | 448 |
-| Markets | 10 countries |
-| Period | January 2021 to December 2024 |
-| Currency | USD |
-
-The dataset follows a star schema with two fact tables (`fact_listening_session` and `fact_subscription_event`), nine dimension tables and one bridge table handling the many-to-many relationship between playlists and tracks.
-
-Two additional tables were built in Power Query for this analysis:
-
-`free_users_engegement` classifies each Free tier user as a Heavy (500 or more sessions), Medium (100 to 499) or Light (under 100) listener based on their total session count. This made it possible to compare conversion rates and behaviour across engagement levels without complex DAX.
-
-`user_conversion_timeline` creates one row per user showing the dates of their key subscription events (signup, upgrade, churn and so on) alongside calculated columns for days to upgrade and days to churn. This powered the cohort analysis and the conversion speed comparisons.
-
----
-
-## Repository Contents
-
-```
-Music-Streaming-Platform-Performance-Analysis
-│
-├── README.md
-├── DATA_DICTIONARY.md
-├── dataset/
-│   ├── fact_listening_session.csv
-│   ├── fact_subscription_event.csv
-│   ├── dim_user.csv
-│   ├── dim_artist.csv
-│   ├── dim_track.csv
-│   ├── dim_genre.csv
-│   ├── dim_device.csv
-│   ├── dim_country.csv
-│   ├── dim_playlist.csv
-│   ├── dim_subscription_plan.csv
-│   ├── dim_date.csv
-│   └── bridge_playlist_track.csv
-└── Dashboard/
-    ├── page1_business_health.png
-    ├── page2_growth_engine.png
-    ├── page3_content_engine.png
-    └── page4_risk_and_action.png
-```
-
----
-
-
-## Author
-
-**Johanna Ezedinma**
-
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Johanna-Ezedinma) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/johanna-ezedinma/)  
-
+| DAX | Calculated measures and analytical metrics |
+| Power Query (M) | Data transformation and modelling |
